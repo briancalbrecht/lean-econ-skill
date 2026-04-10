@@ -1,0 +1,12 @@
+{
+  "name": "lean-econ",
+  "description": "Formalize, verify, and document economics-paper claims in Lean 4 + mathlib",
+  "version": "0.1.0",
+  "author": {
+    "name": "Brian C. Albrecht"
+  },
+  "homepage": "https://github.com/briancalbrecht/lean-econ-skill",
+  "repository": "https://github.com/briancalbrecht/lean-econ-skill",
+  "license": "MIT",
+  "keywords": ["lean", "lean4", "mathlib", "economics", "formalization", "theorem-proving"]
+}
