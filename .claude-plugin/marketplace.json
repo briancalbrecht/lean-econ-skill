@@ -1,0 +1,13 @@
+{
+  "name": "lean-econ-local",
+  "owner": {
+    "name": "Brian C. Albrecht"
+  },
+  "plugins": [
+    {
+      "name": "lean-econ",
+      "source": "./",
+      "description": "Formalize economics-paper claims in Lean 4 + mathlib"
+    }
+  ]
+}
