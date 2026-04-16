@@ -61,6 +61,11 @@ If `~/.claude/lean-econ.json` exists but is malformed, treat it as missing
 and proceed to tier 3, then rewrite it with the new value. Do not silently
 overwrite a tier-1 value that disagrees with tier 2 — tier 1 wins.
 
+Before persisting a path to either the JSON config or CLAUDE.md, expand
+`~` to the user's home directory so the stored value is an absolute path.
+The example prompt `~/Documents/GitHub/lean` should be stored as
+`/Users/<you>/Documents/GitHub/lean`.
+
 **Step 3: Derive names.** From the project folder path:
 - `paper_name`: folder name, lowercase, hyphens kept
 - `PaperName`: PascalCase for the Lean directory
@@ -72,6 +77,9 @@ mkdir -p <lean_root>/LeanEconomics/Papers/<PaperName>
 ```
 
 **Step 5: Add the block to CLAUDE.md.**
+
+If the `## Lean formalization` block already exists in CLAUDE.md (tier 1 of Step 2), skip this step; do not append a second block. If it exists but the `lean_root:` inside it disagrees with the value resolved in Step 2, keep the existing CLAUDE.md value (tier 1 wins) and surface the divergence to the user in a one-line note.
+
 ```markdown
 ## Lean formalization
 - **paper_name**: <name>
