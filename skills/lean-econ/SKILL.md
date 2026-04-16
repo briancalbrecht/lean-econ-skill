@@ -44,9 +44,22 @@ When `/lean` is invoked and the current project's CLAUDE.md has no
 - `paper/main.tex`, `paper/main_*.tex`, `drafts/*.tex`, `comment/*.tex`
 - Any `.tex` with `\begin{document}` and formal environments
 
-**Step 2: Ask for the Lean project root.** Check if CLAUDE.md already
-specifies it. If not, ask:
-> "Where is your Lean 4 + mathlib project? (e.g., ~/Documents/GitHub/lean)"
+**Step 2: Resolve the Lean project root (three-tier lookup).**
+
+1. **Per-paper CLAUDE.md.** If the current project's CLAUDE.md already has
+   `lean_root:` in its `## Lean formalization` block, use that value.
+2. **Global config.** Otherwise, read `~/.claude/lean-econ.json`. If it
+   exists and contains `{"lean_root": "<path>"}`, use that value, and
+   write it into the per-paper CLAUDE.md block once Step 5 runs.
+3. **Ask.** Otherwise, ask the user:
+   > "Where is your Lean 4 + mathlib project? (e.g., ~/Documents/GitHub/lean)"
+   After they answer, write the path into **both** `~/.claude/lean-econ.json`
+   (creating it if absent) and the per-paper CLAUDE.md block, so no future
+   invocation asks again.
+
+If `~/.claude/lean-econ.json` exists but is malformed, treat it as missing
+and proceed to tier 3, then rewrite it with the new value. Do not silently
+overwrite a tier-1 value that disagrees with tier 2 — tier 1 wins.
 
 **Step 3: Derive names.** From the project folder path:
 - `paper_name`: folder name, lowercase, hyphens kept
